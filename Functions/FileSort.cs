@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace NumberBlockSorting
+namespace NumberBlockSorting.Functions
 {
     public class FileSort
     {
