@@ -13,10 +13,10 @@ namespace NumberBlockSorting
             {
                 using (StreamReader file = new StreamReader(filename))
                 {
-                    string line;
+                    string? line;
                     while ((line = file.ReadLine()) != null)
                     {
-                        phoneNumbers.Add(int.Parse(line));
+                        phoneNumbers.Add(line);
                     }
                 }
             }
@@ -56,9 +56,8 @@ namespace NumberBlockSorting
                 }
                 currentSequence = new List<string> { number };
             }
-        }
             // Check for the last sequence
-            if (currentSequence.Length > 1)
+            if (currentSequence.Count > 1)
             {
                 consecutiveSequences.Add($"{currentSequence[0]}, {currentSequence[-1]}");
             }
@@ -68,5 +67,5 @@ namespace NumberBlockSorting
             }
         return consecutiveSequences;
         }
-
     }
+}
