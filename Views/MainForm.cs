@@ -41,16 +41,36 @@ namespace NumberBlockSorting.Views
         private void buttonProcess_Click(object sender, EventArgs e)
         {
             string inputFileName = textBoxFilePath.Text;
-            if (string.IsNullOrEmpty(inputFileName) || !File.Exists(inputFileName))
+            try
             {
-                MessageBox.Show("Please select a valid file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                if (string.IsNullOrEmpty(inputFileName) || !File.Exists(inputFileName))
+                {
+                    MessageBox.Show("Please select a valid file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            FileSort fileSort = new ();
-            var phoneNumbers = fileSort.ReadPhoneNumbersFromFile(inputFileName);
-            var consecutiveSequences = fileSort.FindConsecutiveNumbers(phoneNumbers);
-            MessageBox.Show(string.Join(Environment.NewLine, consecutiveSequences), "Consecutive Numbers", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FileSort fileSort = new();
+                var phoneNumbers = FileSort.ReadPhoneNumbersFromFile(inputFileName);
+                var consecutiveSequences = FileSort.FindConsecutiveNumbers(phoneNumbers);
+                FileSort.outputConsecutiveSequences(consecutiveSequences, "output.txt");
+                MessageBox.Show(string.Join(Environment.NewLine, consecutiveSequences), "Consecutive Numbers", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show("What would you like to name the save file?", "Save File", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Prompt user to save the file
+                SaveFileDialog saveFileDialog = new()
+                {
+                    Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+                    FileName = "output.txt"
+                };
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.Copy("output.txt", saveFileDialog.FileName, true);
+                    MessageBox.Show("File downloaded successfully.", "Download Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

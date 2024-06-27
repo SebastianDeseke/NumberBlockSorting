@@ -6,7 +6,7 @@ namespace NumberBlockSorting.Functions
 {
     public class FileSort
     {
-        public List<string> ReadPhoneNumbersFromFile(string filename)
+        public static List<string> ReadPhoneNumbersFromFile(string filename)
         {
             List<string> phoneNumbers = new List<string>();
             try
@@ -31,7 +31,7 @@ namespace NumberBlockSorting.Functions
             return phoneNumbers;
         }
 
-        public List<string> FindConsecutiveNumbers(List<string> numbers)
+        public static List<string> FindConsecutiveNumbers(List<string> numbers)
         {
             numbers.Sort();
             List<string> consecutiveSequences = new List<string>();
@@ -66,6 +66,21 @@ namespace NumberBlockSorting.Functions
                 consecutiveSequences.Add($"{currentSequence[0]}, {currentSequence[0]}");
             }
         return consecutiveSequences;
+        }
+
+        public static void outputConsecutiveSequences(List<string> consecutiveSequences, string outputFile)
+        {
+            int count = 0;
+            using (StreamWriter file = new (outputFile)){
+                file.WriteLine("Consecutive Numbers Found:\n");
+                foreach (var number in consecutiveSequences)
+            {
+                file.WriteLine(number);
+                count++;
+            }
+            file.WriteLine($"\nTotal Consecutive Sequences: {count}");
+            Console.WriteLine($"Consecutive sequences, amount = {count}, written to {outputFile}");
+            }
         }
     }
 }
