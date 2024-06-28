@@ -65,21 +65,22 @@ namespace NumberBlockSorting.Functions
             {
                 consecutiveSequences.Add($"{currentSequence[0]}, {currentSequence[0]}");
             }
-        return consecutiveSequences;
+            return consecutiveSequences;
         }
 
         public static void outputConsecutiveSequences(List<string> consecutiveSequences, string outputFile)
         {
             int count = 0;
-            using (StreamWriter file = new (outputFile)){
+            using (StreamWriter file = new(outputFile))
+            {
                 file.WriteLine("Consecutive Numbers Found:\n");
                 foreach (var number in consecutiveSequences)
-            {
-                file.WriteLine(number);
-                count++;
-            }
-            file.WriteLine($"\nTotal Consecutive Sequences: {count}");
-            Console.WriteLine($"Consecutive sequences, amount = {count}, written to {outputFile}");
+                {
+                    file.WriteLine(number);
+                    count++;
+                }
+                file.WriteLine($"\nTotal Consecutive Sequences: {count}");
+                Console.WriteLine($"Consecutive sequences, amount = {count}, written to {outputFile}");
             }
         }
     }

@@ -12,12 +12,28 @@ For those who aren't around the VoIP business, thats fine, I will give you a bri
 
 ## Notes
 
-If you want another output name of file, you change that at this code block in the MainForm.cs
+If you want to edit it to accept different file types, got to the __buttonBrowse_Click__ method:
 
 ```c#
-    FileSort fileSort = new ();
-    var phoneNumbers = FileSort.ReadPhoneNumbersFromFile(inputFileName);
-    var consecutiveSequences = FileSort.FindConsecutiveNumbers(phoneNumbers);
-    FileSort.outputConsecutiveSequences(consecutiveSequences, "output.txt");
-    MessageBox.Show(string.Join(Environment.NewLine, consecutiveSequences), "Consecutive Numbers", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    openFileDialog.Filter = "Text documents (.txt)|*.txt";
+    if (openFileDialog.ShowDialog() == DialogResult.OK)
+    {
+        textBoxFilePath.Text = openFileDialog.FileName;
+    }
 ```
+
+
+The software has the function t have your logo be displayed. You can edit it here in the __MainForm_Load__ method:
+
+```c#
+        string logoPath = "logo.png";
+            if (File.Exists(logoPath))
+            {
+                var logoImage = new Bitmap(logoPath);
+                pictureBoxLogo.Image = new Bitmap(logoImage, new Size(250, 150));
+            }
+```
+
+## Style
+
+Any style changes can be made in the __MainForm.Designer.cs__ file. 
